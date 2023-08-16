@@ -10,12 +10,9 @@ import Warriors from "./views/Warriors";
 
 const App = () => (
   <div>
-    <h1>Basic Example</h1>
     <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/hello" element={<Hello />} />
         <Route path="/warriors" element={<Warriors />} />
-
     </Routes>
   </div>
 );

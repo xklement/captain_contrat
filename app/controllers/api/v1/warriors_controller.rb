@@ -3,27 +3,28 @@ class Api::V1::WarriorsController < Api::V1::BaseController
 
   def index
     @warriors = Warrior.all
-    puts "asd"
-    render json: @warriors
+    render json: as_json(@warriors)
   end
 
   def show
-    render json: @warrior
+    render json: as_json([@warrior])
   end
 
   def create
     @warrior = Warrior.new(warrior_params)
 
     if @warrior.save
-      render json: @warrior, status: :created
+      render json: as_json([@warrior]), status: :created
     else
       render json: @warrior.errors, status: :unprocessable_entity
     end
   end
 
   def update
-    if @warrior.update(warrior_params)
-      render json: @warrior
+    filtered_params = warrior_params.dup
+    filtered_params.delete(:image) if warrior_params[:image] == 'null'
+    if @warrior.update(filtered_params)
+      render json: as_json([@warrior])
     else
       render json: @warrior.errors, status: :unprocessable_entity
     end
@@ -36,11 +37,23 @@ class Api::V1::WarriorsController < Api::V1::BaseController
 
   private
 
+  def as_json(warriors)
+    warriors.map do |warrior|
+      {
+        id: warrior.id,
+        name: warrior.name,
+        attack: warrior.attack,
+        hp: warrior.hp,
+        image_url: warrior.image.attached? ? url_for(warrior.image) : nil
+      }
+    end
+  end
+
   def set_warrior
     @warrior = Warrior.find(params[:id])
   end
 
   def warrior_params
-    params.require(:warrior).permit(:name, :hp, :attack)
+    params.permit(:name, :hp, :attack, :image)
   end
 end

@@ -1,0 +1,30 @@
+@import "./pages/Home.css";
+@import "./pages/Warriors.css";
+
+
+body {
+  margin: 0;
+  background-color: #e5e5e5;
+}
+
+h1 {
+  font-size: 40px;
+  line-height: 50px;
+  font-weight: 600;
+  color: #25282D;
+  margin-bottom: 50px;
+}
+
+h2 {
+  font-size: 35px;
+  line-height: 43px;
+  font-weight: 600;
+  color: #25282D;
+}
+
+h3 {
+  font-size: 30px;
+  line-height: 37px;
+  font-weight: 600;
+  color: #25282D;
+}

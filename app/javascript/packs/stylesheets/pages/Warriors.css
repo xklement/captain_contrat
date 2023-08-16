@@ -1,0 +1,12 @@
+.cards {
+  width: fit-content;
+  cursor: pointer;
+}
+
+.card-container {
+  height: 75%;
+}
+
+.card-image {
+  height: 290px !important;
+}
