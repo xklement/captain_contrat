@@ -6,26 +6,11 @@ import ListGroup from "react-bootstrap/ListGroup";
 function RecapAccordion(props) {
   const { winner, rounds } = props.recap;
   return (
-    <Accordion>
+    <Accordion style={{ position: "absolute" }}>
       <Accordion.Item eventKey="0">
         <Accordion.Header>Winner: {winner} !!</Accordion.Header>
         <Accordion.Body>
-          {/* <ListGroup as="ol">
-            {rounds.map((round, idx) => {
-              const roundElems = Object.keys(round)
-
-              return (
-              <ListGroup.Item as="li">
-                {`round ${idx}`}
-                <div className="ms-2 me-auto">
-                  <div>
-
-                  </div>
-                </div>
-              </ListGroup.Item>
-            )})}
-          </ListGroup> */}
-          <ListGroup>
+          <ListGroup className="recap-list">
             {rounds.map((round, idx) => {
               const roundNumber = idx + 1;
 

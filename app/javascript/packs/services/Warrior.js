@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = "/api/v1";
+import { BASE_URL } from '../utils/constant';
 
 const WarriorService = {
     getAllWarriors() {

@@ -4,15 +4,20 @@
 
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Hello from "./views/Warriors";
 import Home from "./views/Home";
 import Warriors from "./views/Warriors";
+import NavigationBar from "./components/Navbar";
+import Historics from "./views/Historics";
+import Weapons from "./views/Weapons";
 
 const App = () => (
   <div>
+    <NavigationBar />
     <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/warriors" element={<Warriors />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/warriors" element={<Warriors />} />
+      <Route path="/historics" element={<Historics />} />
+      <Route path="/weapons" element={<Weapons />} />
     </Routes>
   </div>
 );

@@ -1,14 +1,28 @@
 .container {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  height: 85%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn-container {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.recap-list {
+  max-height: 20em;
+  overflow-y: scroll;
+}
+
+.empty-box {
+  height: 29em;
+  width: 19em;
+  border: 3px dashed darkgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

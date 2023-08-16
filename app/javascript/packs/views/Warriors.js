@@ -3,28 +3,40 @@ import { Button, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 import WarriorService from "../services/Warrior";
+import WeaponService from "../services/Weapon";
+
 import CustomCard from "../components/CustomCard";
 import CustomModal from "../components/CostumModal";
 
 const Warriors = () => {
   const navigate = useNavigate();
   const [warriors, setWarriors] = useState([]);
-  const [selectedWarrior, setSelectedWarrior] = useState(-1);
+  const [selectedWarrior, setSelectedWarrior] = useState(0);
   const [createModalShow, setCreateModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
+  const [weapons, setWeapons] = useState([]);
 
   useEffect(() => {
     fetchWarriors();
+    fectchWeapons();
   }, [createModalShow]);
 
   useEffect(() => {
     fetchWarriors();
   }, [editModalShow]);
 
+  const fectchWeapons = async () => {
+    try {
+      const response = await WeaponService.getAllWeapons();
+      setWeapons(response.data);
+    } catch (error) {
+      console.error("Error fetching warriors:", error);
+    }
+  };
+
   const fetchWarriors = async () => {
     try {
       const response = await WarriorService.getAllWarriors();
-      console.log(response);
       setWarriors(response.data);
     } catch (error) {
       console.error("Error fetching warriors:", error);
@@ -33,7 +45,7 @@ const Warriors = () => {
 
   const createWarrior = async (data) => {
     try {
-      const response = await WarriorService.createWarrior(data);
+      await WarriorService.createWarrior(data);
       setCreateModalShow(false);
     } catch (error) {
       console.error("Error fetching warriors:", error);
@@ -63,11 +75,20 @@ const Warriors = () => {
     setEditModalShow(true);
   };
 
+  const handleCloseEditModal = () => {
+    setEditModalShow(false);
+    setSelectedWarrior(0);
+  };
+
   return (
     <Container>
       <h1>Warriors List</h1>
-      <Button color="primary" className="px-4" onClick={() => navigate("/")}>
-        Go back
+      <Button
+        color="primary"
+        style={{ marginBottom: "2em" }}
+        onClick={() => setCreateModalShow(true)}
+      >
+        Add
       </Button>
       <Row className="card-container">
         {warriors.map((warrior) => (
@@ -79,23 +100,22 @@ const Warriors = () => {
             <CustomCard warrior={warrior} />
           </div>
         ))}
-        <Button color="primary" onClick={() => setCreateModalShow(true)}>
-          Add
-        </Button>
       </Row>
       <CustomModal
         show={createModalShow}
-        handleSumbit={createWarrior}
-        text={'Create'}
         onHide={() => setCreateModalShow(false)}
+        handleSumbit={createWarrior}
+        text={"Create"}
+        weapons={weapons}
       />
       <CustomModal
         show={editModalShow}
         handleSumbit={editWarrior}
-        text={'Edit'}
-        onHide={() => setEditModalShow(false)}
+        text={"Edit"}
+        onHide={() => handleCloseEditModal()}
         delete={() => deleteWarrior(selectedWarrior)}
         currrentWarrior={selectedWarrior}
+        weapons={weapons}
       />
     </Container>
   );

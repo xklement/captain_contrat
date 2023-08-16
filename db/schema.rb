@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_16_013533) do
+ActiveRecord::Schema.define(version: 2023_08_16_124907) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -52,6 +52,20 @@ ActiveRecord::Schema.define(version: 2023_08_16_013533) do
     t.string "name"
     t.integer "hp"
     t.integer "attack"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.float "win_rate"
+  end
+
+  create_table "warriors_weapons", id: false, force: :cascade do |t|
+    t.integer "warrior_id", null: false
+    t.integer "weapon_id", null: false
+  end
+
+  create_table "weapons", force: :cascade do |t|
+    t.string "name"
+    t.integer "attack"
+    t.integer "hp"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
